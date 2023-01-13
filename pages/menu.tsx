@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { ChampionGrid } from '../components/championGrid'
 import { MenuButton } from '../components/menuButton'
 
 
@@ -14,8 +15,9 @@ export default function Home() {
       </Head>
       <main>
         <div>
-            <p>yoloswag</p>
+            <p>swaghetti yolognese</p>
             <MenuButton></MenuButton>
+            <ChampionGrid></ChampionGrid>
         </div>
       </main>
     </>
