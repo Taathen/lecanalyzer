@@ -22,6 +22,7 @@ export const ChampionGrid = ({selectChampion}: ChampionGridProps) => {
                     alt={"Champion image for " + champion}
                     width="72"
                     height="72"
+                    placeholder="empty"
                 />
             </div>
 
