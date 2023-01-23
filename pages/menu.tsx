@@ -1,10 +1,48 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect, useState } from "react"
 import { ChampionGrid } from '../components/championGrid'
 import { MenuButton } from '../components/menuButton'
+import { TeamChampions, ChampionPick } from '../components/teamChampions'
 
+enum PositionEnum {
+  top,
+  jungle,
+  mid,
+  bottom,
+  support
+}
 
 export default function Home() {
+  const [championPicks, setChampionPicks] = useState<Array<ChampionPick>>([...Array(5)].map(() => {return ({
+    championName: "",
+    championPosition: ""
+  })}));
+  const [currentChosenPosition, setCurrentlyChosenPosition] = useState<number | undefined>(undefined)
+
+  const makeChampionSelect = (championName: string) => {
+    console.log("we updated")
+    const updatedChampionPicks = Array.from(championPicks);
+    const position = getNextPositionIndex(championPicks)
+    const positionString = PositionEnum[position]
+    updatedChampionPicks[position] = {
+      championName: championName,
+      championPosition: positionString
+    }
+    console.log(updatedChampionPicks)
+    setChampionPicks(updatedChampionPicks)
+  }
+
+  const getNextPositionIndex = (championPicks: Array<ChampionPick>) => {
+    if(currentChosenPosition !== undefined) return currentChosenPosition;
+    for(let i = 0; i < championPicks.length; i++) {
+      if(championPicks.at(i)?.championName === "") {
+        return i
+      }
+    }
+    return 0
+  }
+
   return (
     <>
       <Head>
@@ -14,10 +52,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>
-            <p>swaghetti yolognese</p>
-            <MenuButton></MenuButton>
-            <ChampionGrid></ChampionGrid>
+        <div className="grid grid-cols-3 w-full h-screen">
+          <div className="flex flex-col">
+              <h3 className="text-center text-xl text-red-400 font-bold">Red</h3>
+              <TeamChampions teamSide="red" teamPicks={championPicks}/>
+          </div>
+          <div className="flex flex-col">
+              <MenuButton></MenuButton>
+              <ChampionGrid selectChampion={makeChampionSelect}></ChampionGrid>
+          </div>
+          <div className="flex flex-col">
+              <p>Blue</p>
+          </div>
         </div>
       </main>
     </>
