@@ -1,47 +1,78 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { useEffect, useState } from "react"
-import { ChampionGrid } from '../components/championGrid'
-import { MenuButton } from '../components/menuButton'
-import { TeamChampions, ChampionPick } from '../components/teamChampions'
+import Head from "next/head";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { ChampionGrid } from "../components/championGrid";
 
-enum PositionEnum {
+import { TeamChampions, ChampionPick } from "../components/teamChampions";
+
+export enum PositionEnum {
   top,
   jungle,
   mid,
   bottom,
-  support
+  support,
 }
+export type TeamSide = "blue" | "red";
 
 export default function Home() {
-  const [championPicks, setChampionPicks] = useState<Array<ChampionPick>>([...Array(5)].map(() => {return ({
-    championName: "",
-    championPosition: ""
-  })}));
-  const [currentChosenPosition, setCurrentlyChosenPosition] = useState<number | undefined>(undefined)
+  const [redChampionPicks, redSetChampionPicks] = useState<Array<ChampionPick>>(
+    [...Array(5)].map((index) => {
+      return {
+        championName: "",
+        championPosition: index,
+      };
+    })
+  );
+  const [blueChampionPicks, blueSetChampionPicks] = useState<
+    Array<ChampionPick>
+  >(
+    [...Array(5)].map((index) => {
+      return {
+        championName: "",
+        championPosition: index,
+      };
+    })
+  );
+  const [currentChosenPosition, setCurrentlyChosenPosition] = useState<
+    number | undefined
+  >(undefined);
+  const [currentSide, setCurrentSide] = useState<TeamSide>("blue");
 
   const makeChampionSelect = (championName: string) => {
-    console.log("we updated")
+    console.log("Current situation is");
+    console.log(currentSide);
+    console.log(currentChosenPosition);
+    const championPicks =
+      currentSide === "blue" ? blueChampionPicks : redChampionPicks;
     const updatedChampionPicks = Array.from(championPicks);
-    const position = getNextPositionIndex(championPicks)
-    const positionString = PositionEnum[position]
+    const position = getNextPositionIndex(championPicks);
+    const positionString = PositionEnum[position];
     updatedChampionPicks[position] = {
       championName: championName,
-      championPosition: positionString
-    }
-    console.log(updatedChampionPicks)
-    setChampionPicks(updatedChampionPicks)
-  }
+      championPosition: position,
+    };
+    console.log(updatedChampionPicks);
+    currentSide === "blue"
+      ? blueSetChampionPicks(updatedChampionPicks)
+      : redSetChampionPicks(updatedChampionPicks);
+  };
 
   const getNextPositionIndex = (championPicks: Array<ChampionPick>) => {
-    if(currentChosenPosition !== undefined) return currentChosenPosition;
-    for(let i = 0; i < championPicks.length; i++) {
-      if(championPicks.at(i)?.championName === "") {
-        return i
+    if (currentChosenPosition !== undefined) return currentChosenPosition;
+    for (let i = 0; i < championPicks.length; i++) {
+      if (championPicks.at(i)?.championName === "") {
+        return i;
       }
     }
-    return 0
-  }
+    return 0;
+  };
+  const choosePosAndSide = (side: TeamSide, position: PositionEnum) => {
+    console.log("here");
+    console.log(side);
+    console.log(position);
+    setCurrentlyChosenPosition(position);
+    setCurrentSide(side);
+  };
 
   return (
     <>
@@ -54,18 +85,24 @@ export default function Home() {
       <main>
         <div className="grid grid-cols-3 w-full h-screen">
           <div className="flex flex-col">
-              <h3 className="text-center text-xl text-red-400 font-bold">Red</h3>
-              <TeamChampions teamSide="red" teamPicks={championPicks}/>
+            <TeamChampions
+              choosePosAndSide={choosePosAndSide}
+              teamSide="blue"
+              teamPicks={blueChampionPicks}
+            />
           </div>
           <div className="flex flex-col">
-              <MenuButton></MenuButton>
-              <ChampionGrid selectChampion={makeChampionSelect}></ChampionGrid>
+            <ChampionGrid selectChampion={makeChampionSelect}></ChampionGrid>
           </div>
           <div className="flex flex-col">
-              <p>Blue</p>
+            <TeamChampions
+              choosePosAndSide={choosePosAndSide}
+              teamSide="red"
+              teamPicks={redChampionPicks}
+            />
           </div>
         </div>
       </main>
     </>
-  )
+  );
 }

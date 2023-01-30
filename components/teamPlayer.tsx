@@ -1,18 +1,39 @@
 import { ChampionPick } from "./teamChampions";
 import Image from "next/image";
+import { TeamSide, PositionEnum } from "../pages/menu";
+
+interface OwnProps {
+  teamSide: TeamSide;
+  handleOnClick: (side: TeamSide, pos: PositionEnum) => void;
+}
+
+type TeamPlayerProps = OwnProps & ChampionPick;
 
 export const TeamPlayer = ({
   championName,
   championPosition,
-}: ChampionPick) => {
+  teamSide,
+  handleOnClick,
+}: TeamPlayerProps) => {
+  const color = teamSide === "blue" ? "gtblue" : "gtred";
+  const orientation =
+    teamSide === "blue" ? "bg-graident-to-r" : "bg-gradient-to-l";
   if (!championName) {
     return (
-      <div className="w-full h-full bg-gradient-to-r from-[#7f1d1d80] bg-opacity-25"></div>
+      <div
+        className={`w-full h-full ${orientation} from-${color} bg-opacity-25`}
+        onClick={() => {
+          handleOnClick(teamSide, championPosition);
+        }}
+      />
     );
   }
   return (
     <div className="relative" key={championName + championPosition}>
-      <div className="h-40 w-full">
+      <div
+        className="h-40 w-full transform -scale-x-100"
+        onClick={() => handleOnClick(teamSide, championPosition)}
+      >
         <Image
           src={
             "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/" +
@@ -22,7 +43,11 @@ export const TeamPlayer = ({
           }
           alt={"Champion image for " + championName}
           fill={true}
-          style={{ objectFit: "cover", objectPosition: "right top" }}
+          style={{
+            objectFit: "cover",
+            objectPosition: "right top",
+            transform: "scaleX(-1)",
+          }}
         />
       </div>
       <div className="absolute bottom-0">
