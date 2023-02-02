@@ -5,6 +5,7 @@ interface TeamChampionsProps {
   teamSide: TeamSide;
   teamPicks: Array<ChampionPick>;
   choosePosAndSide: (side: TeamSide, pos: PositionEnum) => void;
+  chosenIndex?: number;
 }
 
 export interface ChampionPick {
@@ -15,6 +16,7 @@ export const TeamChampions = ({
   teamPicks,
   teamSide,
   choosePosAndSide,
+  chosenIndex,
 }: TeamChampionsProps) => {
   const picks = useMemo(() => teamPicks, [teamPicks]);
   const renderChhampionSlots = () => {
@@ -26,6 +28,7 @@ export const TeamChampions = ({
             teamSide={teamSide}
             championName={element.championName}
             championPosition={index}
+            isChosen={chosenIndex === index}
           />
         </div>
       );

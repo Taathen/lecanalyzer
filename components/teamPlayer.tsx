@@ -5,6 +5,7 @@ import { TeamSide, PositionEnum } from "../pages/menu";
 interface OwnProps {
   teamSide: TeamSide;
   handleOnClick: (side: TeamSide, pos: PositionEnum) => void;
+  isChosen: boolean;
 }
 
 type TeamPlayerProps = OwnProps & ChampionPick;
@@ -14,14 +15,16 @@ export const TeamPlayer = ({
   championPosition,
   teamSide,
   handleOnClick,
+  isChosen,
 }: TeamPlayerProps) => {
-  const color = teamSide === "blue" ? "gtblue" : "gtred";
+  const chosen = isChosen ? "border-white" : "border-black";
+  const color = teamSide === "blue" ? "from-gtblue" : "from-gtred";
   const orientation =
-    teamSide === "blue" ? "bg-graident-to-r" : "bg-gradient-to-l";
+    teamSide === "blue" ? "bg-gradient-to-r" : "bg-gradient-to-l";
   if (!championName) {
     return (
       <div
-        className={`w-full h-full ${orientation} from-${color} bg-opacity-25`}
+        className={`w-full h-full ${orientation} ${color} bg-opacity-25 border-2 ${chosen}`}
         onClick={() => {
           handleOnClick(teamSide, championPosition);
         }}
@@ -29,7 +32,10 @@ export const TeamPlayer = ({
     );
   }
   return (
-    <div className="relative" key={championName + championPosition}>
+    <div
+      className={`relative border-y-2 ${chosen}`}
+      key={championName + championPosition}
+    >
       <div
         className="h-40 w-full transform -scale-x-100"
         onClick={() => handleOnClick(teamSide, championPosition)}

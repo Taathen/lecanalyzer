@@ -66,6 +66,14 @@ export default function Home() {
     }
     return 0;
   };
+  const getChosenSlot = (side: TeamSide) => {
+    const championPicks =
+      side === "blue" ? blueChampionPicks : redChampionPicks;
+    return side === currentSide
+      ? getNextPositionIndex(championPicks)
+      : undefined;
+  };
+
   const choosePosAndSide = (side: TeamSide, position: PositionEnum) => {
     console.log("here");
     console.log(side);
@@ -89,6 +97,7 @@ export default function Home() {
               choosePosAndSide={choosePosAndSide}
               teamSide="blue"
               teamPicks={blueChampionPicks}
+              chosenIndex={getChosenSlot("blue")}
             />
           </div>
           <div className="flex flex-col">
@@ -99,6 +108,7 @@ export default function Home() {
               choosePosAndSide={choosePosAndSide}
               teamSide="red"
               teamPicks={redChampionPicks}
+              chosenIndex={getChosenSlot("red")}
             />
           </div>
         </div>
