@@ -2,7 +2,7 @@
 
 This project was done on free time to showcase React, Nextjs and Tailwind skills.
 
-This project is deployed to Vercel at: https://lecanalyzer-jphism7yh-taathens-projects.vercel.app/
+This project is deployed to Vercel at: https://lecanalyzer.vercel.app/
 
 ## The use of Project
 
