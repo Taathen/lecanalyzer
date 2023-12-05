@@ -2,6 +2,8 @@
 
 This project was done on free time to showcase React, Nextjs and Tailwind skills.
 
+This project is deployed to Vercel at: https://lecanalyzer-jphism7yh-taathens-projects.vercel.app/
+
 ## The use of Project
 
 The idea of this Frontend application was to be user's terminal for operating prediction AI-model which could predict the end result of a League of Legends match based on the champions selected.
