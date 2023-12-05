@@ -9,6 +9,6 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const predictResult = Math.random();
+  const predictResult = Math.round(Math.random() * 101);
   res.status(200).json({ prediction: predictResult });
 }

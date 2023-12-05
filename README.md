@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### README
 
-## Getting Started
+This project was done on free time to showcase React, Nextjs and Tailwind skills.
 
-First, run the development server:
+## The use of Project
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+The idea of this Frontend application was to be user's terminal for operating prediction AI-model which could predict the end result of a League of Legends match based on the champions selected.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+User can select the champions for both teams as they see fit and, after making an api call to the AI-model, view the results.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Please note: Because of the requirements of actually deploying and operating AI-model far surpassing the resources this project had, this project uses a demo endpoint to showcase how it would work.a
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+But please note also: This project was tested using working model locally and verified that this application could work in production as described
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Key components
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Team champions & Team player
 
-## Learn More
+These two components handle showing the team's status and handle the user input on the player positions. Their most important functionality is to take in the chosen champion names in their respective order and show the to the user using League of Legend's API endpoint
 
-To learn more about Next.js, take a look at the following resources:
+# Champion grid
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Together with League of Legend's API endpoint, this component shows all selectable characters in this game. When clicked the portrait, it calls the given function to make the champion selected
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Index.tsx (The page itself)
 
-## Deploy on Vercel
+It's main responsibility was to track the state of the champion selection and hold the actual data for both of the teams. Most of the logic is done when user is trying to select the champion as we deduce which team and which position the selected champion should go.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This page could have been made into a separate component but since the page only has this feature, it didn't seem necessary.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Predict container & Bar
+
+It's simple function is to call the prediction endpoint and take the result which it shows graphically to the user using the Prediction Bar. In the real production, this component would also take the chosen champions as a props and pass in onwards into the API endpoint

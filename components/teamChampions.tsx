@@ -1,6 +1,8 @@
 import { TeamPlayer } from "./teamPlayer";
 import { useMemo } from "react";
-import { TeamSide, PositionEnum } from "../pages/menu";
+import { TeamSide } from "../types/teamSide";
+import { PositionEnum } from "../types/positionEnum";
+
 interface TeamChampionsProps {
   teamSide: TeamSide;
   teamPicks: Array<ChampionPick>;

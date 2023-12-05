@@ -1,6 +1,7 @@
 import { ChampionPick } from "./teamChampions";
 import Image from "next/image";
-import { TeamSide, PositionEnum } from "../pages/menu";
+import { PositionEnum } from "../types/positionEnum";
+import { TeamSide } from "../types/teamSide";
 
 interface OwnProps {
   teamSide: TeamSide;
@@ -58,7 +59,13 @@ export const TeamPlayer = ({
       </div>
       <div className="absolute bottom-0">
         <p>{championName}</p>
-        <p>{championPosition}</p>
+        <p>
+          {PositionEnum[championPosition].charAt(0).toUpperCase().slice(0, 1) +
+            PositionEnum[championPosition].slice(
+              1,
+              PositionEnum[championPosition].length
+            )}
+        </p>
       </div>
     </div>
   );
