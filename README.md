@@ -1,4 +1,4 @@
-### README
+# README
 
 This project was done on free time to showcase React, Nextjs and Tailwind skills.
 
@@ -16,20 +16,20 @@ But please note also: This project was tested using working model locally and ve
 
 ## Key components
 
-# Team champions & Team player
+### Team champions & Team player
 
 These two components handle showing the team's status and handle the user input on the player positions. Their most important functionality is to take in the chosen champion names in their respective order and show the to the user using League of Legend's API endpoint
 
-# Champion grid
+### Champion grid
 
 Together with League of Legend's API endpoint, this component shows all selectable characters in this game. When clicked the portrait, it calls the given function to make the champion selected
 
-# Index.tsx (The page itself)
+### Index.tsx (The page itself)
 
 It's main responsibility was to track the state of the champion selection and hold the actual data for both of the teams. Most of the logic is done when user is trying to select the champion as we deduce which team and which position the selected champion should go.
 
 This page could have been made into a separate component but since the page only has this feature, it didn't seem necessary.
 
-# Predict container & Bar
+### Predict container & Bar
 
 It's simple function is to call the prediction endpoint and take the result which it shows graphically to the user using the Prediction Bar. In the real production, this component would also take the chosen champions as a props and pass in onwards into the API endpoint
